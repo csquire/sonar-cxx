@@ -27,6 +27,8 @@ import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Nullable;
 import static org.assertj.core.api.Assertions.assertThat;
+
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -147,7 +149,7 @@ public class CxxLexerIncludeTest {
   private List<String> absolute(String... path) {
     var result = new ArrayList<String>();
     for (String item : path) {
-      if (!item.isBlank()) {
+      if (!StringUtils.isBlank(item)) {
         result.add(new File(root(), item).getAbsolutePath());
       }
     }

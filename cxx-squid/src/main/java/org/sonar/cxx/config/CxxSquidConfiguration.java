@@ -23,6 +23,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -409,7 +410,13 @@ public class CxxSquidConfiguration extends SquidConfiguration {
   public String toString() {
     var stream = new ByteArrayOutputStream();
     save(stream);
-    return stream.toString(StandardCharsets.UTF_8);
+    try {
+      return stream.toString("UTF-8");
+    } catch (UnsupportedEncodingException e) {
+      //no-op - won't happen
+      LOG.error("CharsetName not found: " + e.getMessage());
+    }
+    return "";
   }
 
   public String getBaseDir() {

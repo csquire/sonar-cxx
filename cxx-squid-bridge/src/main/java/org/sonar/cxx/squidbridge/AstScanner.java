@@ -35,6 +35,7 @@ import com.sonar.sslr.impl.ast.AstWalker;
 import java.io.File;
 import java.io.InterruptedIOException;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
 import org.sonar.api.batch.fs.InputFile;
@@ -77,11 +78,11 @@ public class AstScanner<G extends Grammar> {
   }
 
   public void scanFile(File file) {
-    scanFiles(java.util.List.of(file));
+    scanFiles(Collections.singleton(file));
   }
 
   public void scanInputFile(InputFile inputFile) {
-    scanInputFiles(java.util.List.of(inputFile));
+    scanInputFiles(Collections.singleton(inputFile));
   }
 
   public void scanFiles(Collection<File> files) {

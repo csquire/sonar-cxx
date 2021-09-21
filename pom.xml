@@ -260,7 +260,7 @@
     <aggregate.report.dir>integration-tests/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
     <!-- versions -->
     <sonar.version>7.9</sonar.version>
-    <java.version>11</java.version>
+    <java.version>8</java.version>
     <maven.compiler.version>3.8.1</maven.compiler.version>
     <sslr.version>1.24.0.633</sslr.version>
     <!-- we depend on API ${sonar.version} but we keep backward compatibility with LTS -->
@@ -361,6 +361,16 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.github.bsideup.jabel</groupId>
+      <artifactId>jabel-javac-plugin</artifactId>
+      <version>0.4.1</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
   <build>
     <!-- To define the plugin version in your parent POM -->
     <pluginManagement>
@@ -404,6 +414,10 @@
             <showDeprecation>true</showDeprecation>
             <release>${java.version}</release>
             <debug>true</debug>
+            <!-- The following setting can be avoided on Java 14 and higher -->
+            <compilerArgs>
+              <arg>-Xplugin:jabel</arg>
+            </compilerArgs>
           </configuration>
         </plugin>
         <plugin>

@@ -20,6 +20,7 @@
 package org.sonar.cxx.sensors.infer;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.config.PropertyDefinition;
@@ -39,7 +40,7 @@ public class CxxInferSensor extends CxxIssuesReportSensor {
   private static final Logger LOG = Loggers.get(CxxInferSensor.class);
 
   public static List<PropertyDefinition> properties() {
-    return List.of(PropertyDefinition.builder(REPORT_PATH_KEY)
+    return Collections.singletonList(PropertyDefinition.builder(REPORT_PATH_KEY)
       .name("Infer Report(s)")
       .description(
         "Comma-separated paths (absolute or relative to the project base directory) to `*.json` files with"
