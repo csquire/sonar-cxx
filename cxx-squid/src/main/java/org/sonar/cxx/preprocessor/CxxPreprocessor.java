@@ -43,6 +43,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
+
+import org.apache.commons.lang.StringUtils;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import org.sonar.cxx.config.CxxSquidConfiguration;
@@ -952,7 +954,7 @@ public class CxxPreprocessor extends Preprocessor {
     var result = new HashMap<String, Macro>();
 
     for (var define : defines) {
-      if (define.isBlank()) {
+      if (StringUtils.isBlank(define)) {
         continue;
       }
 
@@ -1142,7 +1144,7 @@ public class CxxPreprocessor extends Preprocessor {
     List<Token> replTokens = new ArrayList<>();
     for (Token ppToken : stripEOF(serialize(ast))) {
       String value = ppToken.getValue();
-      if (!value.isBlank()) {
+      if (!StringUtils.isBlank(value)) {
         // call CXX lexer to create a CXX token
         List<Token> cxxTokens = CxxLexer.create().lex(value);
         var cxxToken = cxxTokens.get(0);

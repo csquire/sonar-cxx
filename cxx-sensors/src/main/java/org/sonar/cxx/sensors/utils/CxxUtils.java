@@ -29,6 +29,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.tools.ant.DirectoryScanner;
 import org.sonar.api.batch.sensor.SensorContext;
@@ -91,7 +93,7 @@ public final class CxxUtils {
    */
   @CheckForNull
   public static String resolveAntPath(final String baseDir, @Nullable final String antPattern) {
-    if (antPattern != null && !antPattern.isBlank()) {
+    if (antPattern != null && !StringUtils.isBlank(antPattern)) {
       String path;
       if (new File(antPattern).isAbsolute()) {
         path = antPattern;

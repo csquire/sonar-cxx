@@ -21,9 +21,13 @@ package org.sonar.cxx.sensors.clangtidy;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.regex.Pattern;
+
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import org.sonar.cxx.sensors.utils.TextScanner;
@@ -132,12 +136,12 @@ public class ClangTidyParser {
   }
 
   String getDefaultRuleId() {
-    Map<String, String> map = Map.of(
-      "note", "",
-      "warning", "clang-diagnostic-warning",
-      "error", "clang-diagnostic-error",
-      "fatal error", "clang-diagnostic-error"
-    );
+    Map<String, String> map = ImmutableMap.<String, String> builder()
+      .put("note", "")
+      .put("warning", "clang-diagnostic-warning")
+      .put("error", "clang-diagnostic-error")
+      .put("fatal error", "clang-diagnostic-error")
+      .build();
 
     return map.getOrDefault(issue.level, "clang-diagnostic-unknown");
   }

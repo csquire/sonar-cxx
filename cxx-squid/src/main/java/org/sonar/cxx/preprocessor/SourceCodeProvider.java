@@ -34,6 +34,7 @@ import java.util.Objects;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
 import org.apache.commons.io.ByteOrderMark;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.BOMInputStream;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
@@ -211,7 +212,7 @@ public class SourceCodeProvider {
                                               ByteOrderMark.UTF_32BE)) {
       ByteOrderMark bom = bomInputStream.getBOM();
       Charset charset = bom != null ? Charset.forName(bom.getCharsetName()) : defaultCharset;
-      byte[] bytes = bomInputStream.readAllBytes();
+      byte[] bytes = IOUtils.toByteArray(bomInputStream);
       return new String(bytes, charset);
     }
   }
